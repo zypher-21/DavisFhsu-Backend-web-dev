@@ -5,24 +5,28 @@ print_r($_POST);
 
 $legal_age = 18;
 
+        
+
 
 if (isset($_GET['first']) && ($_GET['last'])) {
     $firstName = htmlspecialchars($_GET['first']);
     $lastName = htmlspecialchars($_GET['last']);
 } 
-else 
-{
-    echo "Names are not set!";
-}
 
 if (isset($_GET['age'])){
     $age = ($_GET['age']);
 }
-else
-{
-    echo "Age is not set!";
+
+if(empty($firstName) && empty($lastName)){
+    echo "You are missing some data!";
+}
+if (empty($age)){
+    echo "You are missing some data!";
 }
 
+if (empty($age)){
+    echo "You are missing some data!";
+}
 
 
 $firstName = filter_input(INPUT_GET, 'first', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -62,7 +66,7 @@ class="header">
 
 <body>
 <h1>Participant Information</h1>
-<p>"Today's date is: " <?php echo date("F j, Y"); ?></p>
+<p>Today's date is <?php echo date("F j, Y"); ?></p>
     <form action="<?php echo $_SERVER['PHP_SELF']
                     //The $_SERVER["PHP_SELF"] is a super global variable that returns the filename of the currently executing script. 
                     ?> ">
@@ -86,12 +90,12 @@ class="header">
       ?>
       <br>
       <?php
-        if (isset($_GET['age']))
+        if (isset($_GET['age']) && !empty($age))
             echo "I am " . $age . " years old!"
       ?>
       <br>
       <?php
-        if (isset($_GET['age'])){
+        if (isset($_GET['age']) && !empty($age)){
             if ($age >= $legal_age){
                 echo "I am old enough to vote in the United States!";
             }
@@ -100,6 +104,14 @@ class="header">
                 echo "I am not old enough to vote in the United States!";
             }   
         }
+        
+        
+       
+    ?>
+    <br>
+    <?php 
+    if (isset($_GET['age']))
+    echo (int)$age * 365 . " Days";
     ?>
     </P>
     
